@@ -1,0 +1,67 @@
+Продолжаем проект PromoRadar — агрегатор промокодов.
+Сайт на чистом HTML/CSS/JS + Python-парсер + GitHub Actions.
+
+## ЧТО УЖЕ СДЕЛАНО
+
+Все 15 файлов написаны и лежат в структуре:
+
+promo-radar/
+├── .gitignore
+├── README.md
+├── index.html
+├── styles.css
+├── data/
+│   └── coupons.json              (пустой массив [])
+├── js/
+│   ├── config.js                 (CONFIG, CATEGORIES, STATE, Storage, Utils)
+│   ├── data.js                   (MOCK_COUPONS, Data.load/shops/stats/byId)
+│   ├── filters.js                (Filters.render/setCategory/setQuery/apply/refresh/bind)
+│   ├── ui.js                     (UI.render/card/openModal/closeModal/showToast/copyCode/bind)
+│   ├── vk.js                     (VK.formatPost/share/publish/bind)
+│   ├── tg.js                     (TG.formatPost/share/publish/bind)
+│   └── app.js                    (App.init/bindGlobal/refresh/resetFilters)
+├── parser/
+│   ├── parser.py                 (MockSource + заглушки Admitad/Cityads/SalesDoubler, format_post_vk/tg, post_vk/tg, CLI с --dry-run/--post/--limit/--source)
+│   └── README.md
+└── .github/
+    └── workflows/
+        └── parser.yml            (cron 06:00 UTC + workflow_dispatch, коммитит coupons.json)
+
+## ТЕКУЩЕЕ СОСТОЯНИЕ
+
+- Сайт открывается через file:// — работает на mock-данных (23 купона).
+- В консоли CORS-ошибка на fetch coupons.json — это норма для file://, глотается в Data.load().
+- Модалка, фильтры, поиск, копирование, шаринг VK/TG — работают.
+- Парсер не запускался вживую.
+- Секреты VK/TG не настроены. На GitHub ещё не залито.
+
+## СТЕК И ДОГОВОРЁННОСТИ
+
+- Frontend: чистый HTML/CSS/JS, без фреймворков и сборки. Скрипты подключаются через <script> в index.html (без модулей).
+- Порядок скриптов: config.js → data.js → ui.js → filters.js → vk.js → tg.js → app.js
+- Тема: тёмная, жёлтый акцент #f7c948 (как Bybit).
+- Формат постов VK/TG дублируется в js/vk.js + js/tg.js и parser/parser.py — если меняешь один, меняешь второй.
+- Парсер: Python 3.8+, только стандартная библиотека (urllib, json, pathlib, argparse).
+- Категории: all, food, cinema, banks, marketplace, travel, games, subs.
+- Я — новичок. Отвечай коротко, без теории, давай полные файлы целиком (не куски для замены). Каждый файл отдельно.
+
+## ЧТО ОСТАЛОСЬ (Шаг 9 — деплой)
+
+1. git init, commit, push на GitHub.
+2. Включить GitHub Pages (main / root).
+3. Проверить, что сайт работает на https://<username>.github.io/<repo>/.
+4. Создать VK Standalone App → получить access_token (wall, groups, offline) → добавить как secret VK_ACCESS_TOKEN.
+5. Узнать VK_GROUP_ID → добавить secret.
+6. Создать Telegram-бота у @BotFather → токен в secret TG_BOT_TOKEN.
+7. Добавить бота админом в канал → chat_id в secret TG_CHAT_ID.
+8. Проверить workflow parser.yml вручную (workflow_dispatch).
+9. Подключить домен к GitHub Pages (опционально).
+
+## ЧТО МНЕ НУЖНО СЕЙЧАС
+
+Помоги с шагом 9: деплой на GitHub Pages.
+Начни с команд для git init / commit / push.
+Дальше — по шагам: включение Pages, секреты, проверка workflow, домен.
+По каждому пункту — что нажимать, где вводить, что должно появиться.
+
+Поехали.

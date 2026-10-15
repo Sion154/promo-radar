@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromoRadar — рабочие промокоды и скидки</title>
+  <meta name="description" content="Агрегатор актуальных промокодов: доставка еды, кино, банки, маркетплейсы.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="/" class="logo">
+        <span class="logo__mark">P</span>
+        <span class="logo__text">Promo<strong>Radar</strong></span>
+      </a>
+
+      <div class="search">
+        <input
+          type="search"
+          id="searchInput"
+          class="search__input"
+          placeholder="Найти магазин или промокод…"
+          autocomplete="off">
+        <button class="search__clear" id="searchClear" hidden>×</button>
+      </div>
+
+      <nav class="nav">
+        <a href="#coupons" class="nav__link">Промокоды</a>
+        <a href="#how" class="nav__link">Как это работает</a>
+        <a href="#" class="nav__link nav__link--tg" id="tgLink">Telegram</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero__title">Рабочие промокоды <span class="accent">каждый день</span></h1>
+        <p class="hero__subtitle">Проверенные скидки на еду, кино, банки и маркетплейсы. Обновляем вручную и парсером.</p>
+
+        <div class="hero__stats">
+          <div class="stat">
+            <div class="stat__num" id="statTotal">0</div>
+            <div class="stat__label">активных купонов</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num" id="statShops">0</div>
+            <div class="stat__label">магазинов</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num" id="statUpdated">—</div>
+            <div class="stat__label">обновлено</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="coupons" class="coupons">
+      <div class="container">
+        <div class="filters" id="filters"></div>
+
+        <div class="coupons__meta">
+          <span id="resultsCount">Загрузка…</span>
+          <button class="btn btn--ghost" id="refreshBtn" title="Обновить данные">↻ Обновить</button>
+        </div>
+
+        <div class="grid" id="couponsGrid"></div>
+
+        <div class="empty" id="emptyState" hidden>
+          <div class="empty__icon">🔍</div>
+          <div class="empty__title">Ничего не найдено</div>
+          <div class="empty__text">Попробуйте изменить фильтр или поиск</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="how">
+      <div class="container">
+        <h2 class="section-title">Как это работает</h2>
+        <div class="how__grid">
+          <div class="how__item">
+            <div class="how__num">1</div>
+            <h3>Ищите</h3>
+            <p>Выбираете магазин или категорию, находите нужный промокод.</p>
+          </div>
+          <div class="how__item">
+            <div class="how__num">2</div>
+            <h3>Копируете</h3>
+            <p>Нажимаете «Показать код» — он копируется в буфер обмена.</p>
+          </div>
+          <div class="how__item">
+            <div class="how__num">3</div>
+            <h3>Экономите</h3>
+            <p>Переходите по ссылке в магазин и применяете скидку.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>© <span id="year"></span> PromoRadar. Промокоды обновляются автоматически.</div>
+      <div class="footer__links">
+        <a href="#" id="tgFooter">Telegram</a>
+        <a href="#" id="vkFooter">ВКонтакте</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Модалка промокода -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__box" role="dialog" aria-modal="true">
+      <button class="modal__close" data-close aria-label="Закрыть">×</button>
+      <div class="modal__brand" id="modalBrand"></div>
+      <h2 class="modal__title" id="modalTitle"></h2>
+      <p class="modal__desc" id="modalDesc"></p>
+
+      <div class="code" id="modalCodeWrap">
+        <code class="code__value" id="modalCode">—</code>
+        <button class="btn btn--primary" id="copyCodeBtn">Скопировать</button>
+      </div>
+
+      <a href="#" class="btn btn--primary btn--block" id="modalGo" target="_blank" rel="nofollow noopener">
+        Перейти в магазин
+      </a>
+
+      <div class="modal__share">
+        <button type="button" class="btn btn--ghost" id="shareVk">Поделиться ВК</button>
+        <button type="button" class="btn btn--ghost" id="shareTg" hidden>Telegram</button>
+      </div>
+
+      <p class="modal__hint">Скидка активируется на стороне магазина</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <!-- Скрипты: порядок важен! -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/vk.js"></script>
+  <script src="js/tg.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
